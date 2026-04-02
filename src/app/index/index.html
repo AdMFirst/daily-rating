@@ -1,0 +1,39 @@
+<body class="bg-notebook-white text-ink-blue p-10 selection:bg-highlighter-yellow">
+
+  <!-- Title: Pink color, large, underlined like a notebook header -->
+  <h1 class="text-4xl font-bold text-eraser-pink border-b-4 border-pink-pencil inline-block mb-6 -rotate-1">
+    I am wrinting something here
+  </h1>
+
+  <!-- Subtitle: Highlighted look -->
+  <h2 class="text-2xl font-bold bg-highlighter-yellow px-2 w-fit mb-4 rotate-1">
+    Har har har
+  </h2>
+
+  <!-- Dialogue: Using standard spacing -->
+  <div class="space-y-2 mb-6">
+    <p class="text-lg"><span class="font-bold">A:</span> who are you? are you a pirate?</p>
+    <p class="text-lg"><span class="font-bold">B:</span> No, i am a placeholder text</p>
+  </div>
+
+  <!-- The "Image" Placeholder: Styled like a sticker or polaroid -->
+  <div class="bg-white p-8 border-4 border-dashed border-pink-pencil shadow-[8px_8px_0px_0px_rgba(42,45,67,1)] max-w-xs my-8 rounded-lg rotate-1">
+    <p class="text-center italic text-sm">
+      B: and this is a placeholder for an image Har!
+    </p>
+  </div>
+
+  <!-- Template tags -->
+  <p class="text-lg mb-4">
+    <span class="font-bold">A:</span> cool, but do you know 
+    <span class="underline decoration-wavy decoration-eraser-pink">{{ textFromIndex() }}</span>?
+  </p>
+  
+  <p class="text-lg mb-4"><span class="font-bold">B:</span> I have no idea har</p>
+
+  <!-- Final Lorem block: Pushed to a handwritten-style note -->
+  <p class="mt-10 p-4 border-l-4 border-eraser-pink italic opacity-80">
+    {{ loremIpsum() }}
+  </p>
+
+</body>
