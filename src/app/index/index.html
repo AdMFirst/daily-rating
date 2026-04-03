@@ -1,39 +1,56 @@
-<body class="bg-notebook-white text-ink-blue p-10 selection:bg-highlighter-yellow">
-
-  <!-- Title: Pink color, large, underlined like a notebook header -->
-  <h1 class="text-4xl font-bold text-eraser-pink border-b-4 border-pink-pencil inline-block mb-6 -rotate-1">
-    I am wrinting something here
-  </h1>
-
-  <!-- Subtitle: Highlighted look -->
-  <h2 class="text-2xl font-bold bg-highlighter-yellow px-2 w-fit mb-4 rotate-1">
-    Har har har
-  </h2>
-
-  <!-- Dialogue: Using standard spacing -->
-  <div class="space-y-2 mb-6">
-    <p class="text-lg"><span class="font-bold">A:</span> who are you? are you a pirate?</p>
-    <p class="text-lg"><span class="font-bold">B:</span> No, i am a placeholder text</p>
+<div class="hero min-h-[30vh]">
+  <div class="hero-content text-center">
+    <div class="max-w-md">
+      <h1 class="text-5xl font-bold">I am wrinting something here</h1>
+      <p class="py-6 text-2xl">Har har har</p>
+    </div>
   </div>
+</div>
 
-  <!-- The "Image" Placeholder: Styled like a sticker or polaroid -->
-  <div class="bg-white p-8 border-4 border-dashed border-pink-pencil shadow-[8px_8px_0px_0px_rgba(42,45,67,1)] max-w-xs my-8 rounded-lg rotate-1">
-    <p class="text-center italic text-sm">
-      B: and this is a placeholder for an image Har!
+<div class="space-y-2">
+  <h3 class="text-lg font-bold">Some dialogue</h3>
+  <div class="chat chat-start">
+    <div class="chat-bubble"><strong>A:</strong> who are you? are you a pirate?</div>
+  </div>
+  <div class="chat chat-start">
+    <div class="chat-bubble chat-bubble-primary"><strong>B:</strong> No, i am a placeholder text</div>
+  </div>
+</div>
+
+<div class="card card-compact bg-base-100 shadow-xl">
+  <figure><img src="//picsum.photos/seed/picsum/500/300" alt="Placeholder" /></figure>
+  <div class="card-body">
+    <p>B: and this is an image i got for you!</p>
+  </div>
+</div>
+
+<div class="alert">
+  <div>
+    <h3 class="font-bold">Other section</h3>
+    <p>
+      <strong>A:</strong> cool, but do you know 
+      <span class="badge badge-outline">{{ textFromIndex() }}</span>?
     </p>
+    <p><strong>B:</strong> I have no idea har</p>
   </div>
+</div>
 
-  <!-- Template tags -->
-  <p class="text-lg mb-4">
-    <span class="font-bold">A:</span> cool, but do you know 
-    <span class="underline decoration-wavy decoration-eraser-pink">{{ textFromIndex() }}</span>?
+<div class="py-4">
+  <p><strong>A:</strong> That's good, try clicking this button:</p>
+
+  <button class="btn btn-primary" (click)="handleClick()">
+    {{ clickCount() }} times
+  </button>
+
+  <p class="mt-4">
+    <strong>A:</strong> Did you know the {{ clickCount() }}th number is 
+    <span class="font-mono font-bold text-secondary text-xl">{{ fibonacci(clickCount()) }}</span>
   </p>
-  
-  <p class="text-lg mb-4"><span class="font-bold">B:</span> I have no idea har</p>
+</div>
 
-  <!-- Final Lorem block: Pushed to a handwritten-style note -->
-  <p class="mt-10 p-4 border-l-4 border-eraser-pink italic opacity-80">
-    {{ loremIpsum() }}
-  </p>
-
-</body>
+<div class="divider"></div> 
+<section>
+  <h3 class="text-xl font-bold mb-2">Here is long lorem ipsum section</h3>
+  <div class="prose"> {{ loremIpsum() }}
+  </div>
+</section>
