@@ -1,80 +1,90 @@
-<!-- Hero Section using Primary (Pink) background for a bold intro -->
-<div class="hero min-h-[30vh] bg-primary text-primary-content rounded-box">
+<!-- Hero Section with a bold intro -->
+<div class="hero min-h-[70vh] bg-base-100">
   <div class="hero-content text-center">
-    <div class="max-w-md">
-      <h1 class="text-5xl font-bold">I am writing something here</h1>
-      <p class="py-6 text-2xl">Har har har</p>
-    </div>
-  </div>
-</div>
+    <div class="max-w-xl">
+      <h1 class="text-5xl font-bold">How is your day so far?</h1>
+      
+      <!-- 5 star input with Font Awesome -->
+      <div class="py-6">
+        <div class="rating gap-2 w-full max-w-3xl mx-auto">
+          <input type="radio" name="rating-1" (change)="userRating.set(1)"
+                class="mask mask-star-2 bg-primary flex-1 aspect-square size-full" />
+                
+          <input type="radio" name="rating-1" (change)="userRating.set(2)"
+                class="mask mask-star-2 bg-primary flex-1 aspect-square size-full" />
+                
+          <input type="radio" name="rating-1" (change)="userRating.set(3)"
+                class="mask mask-star-2 bg-primary flex-1 aspect-square size-full" />
+                
+          <input type="radio" name="rating-1" (change)="userRating.set(4)"
+                class="mask mask-star-2 bg-primary flex-1 aspect-square size-full" />
+                
+          <input type="radio" name="rating-1" (change)="userRating.set(5)"
+                class="mask mask-star-2 bg-primary flex-1 aspect-square size-full" />
+        </div>
 
-<div class="divider divider-secondary">Journal Entry</div>
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-  <!-- Chat Section showcasing Primary and Secondary bubbles -->
-  <div class="space-y-2">
-    <h3 class="text-lg font-bold text-secondary">Some dialogue</h3>
-    <div class="chat chat-start">
-      <div class="chat-bubble bg-base-300 text-base-content"><strong>A:</strong> who are you? are you a pirate?</div>
-    </div>
-    <div class="chat chat-end">
-      <div class="chat-bubble chat-bubble-primary"><strong>B:</strong> No, i am a placeholder text</div>
-    </div>
-    <div class="chat chat-start">
-      <div class="chat-bubble chat-bubble-secondary"><strong>A:</strong> You look very blue today.</div>
-    </div>
-  </div>
-
-  <!-- Card Section using Base-200 to stand out from the background -->
-  <div class="card card-compact bg-base-200 shadow-2xl border border-white/5">
-    <figure><img src="//picsum.photos/seed/picsum/500/300" alt="Placeholder" class="opacity-80 hover:opacity-100 transition-opacity" /></figure>
-    <div class="card-body">
-      <p class="italic">B: and this is an image i got for you!</p>
-      <div class="card-actions justify-end">
-        <div class="badge badge-accent">New Photo</div>
       </div>
+      <p>debug userRating: {{userRating()}}</p>
+
+      @if (userRating() !== null) {
+        <div class="container mt-12" >
+          <h3 class="text-xl font-semibold mb-4">How do you feel about your day?</h3>
+          
+          <!-- Placeholder for clock like input -->
+          <div class="flex justify-center py-4">
+            <div class="w-80 h-80 border-2 border-primary rounded-full flex items-center justify-center relative group cursor-pointer">
+              <i class="fa-solid fa-clock-rotate-left text-4xl opacity-50 group-hover:rotate-180 transition-transform duration-700"></i>
+              <span class="absolute -top-6 text-xs uppercase tracking-widest font-bold">Activation</span>
+              <span class="absolute -right-12 text-xs uppercase tracking-widest font-bold rotate-90">Valence</span>
+            </div>
+          </div>
+          
+          <p class="mt-4 font-semibold text-xl italic">Angry?</p>
+          <p class="text-sm opacity-70">Activation: 0.80</p>
+          <p class="text-sm opacity-70">Valence: 0.28</p>
+        </div>
+      }
+      
     </div>
   </div>
 </div>
 
-<!-- Alert Section showcasing Info/Neutral colors -->
-<div class="alert alert-info shadow-lg my-8">
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-  <div>
-    <h3 class="font-bold">System Note</h3>
-    <p>
-      <strong>A:</strong> cool, but do you know 
-      <span class="badge badge-outline badge-primary">{{ textFromIndex() }}</span>?
+
+<!-- Section for explaining the app -->
+<div class="max-w-2xl mx-auto px-6 py-16 space-y-16">
+  <section>
+    <h2 class="text-3xl font-bold mb-4 flex items-center gap-3">
+      <i class="fa-solid fa-circle-info text-xl"></i> What is Daily Rating?
+    </h2>
+    <p class="text-lg leading-relaxed opacity-90">
+      Daily Rating is a simple app that allows you to rate your day on a scale of 1 to 5 stars. 
+      It's designed to help you reflect on your day and track your mood over time. 
+      Whether you're having a great day or a tough one, Daily Rating provides a quick and 
+      easy way to capture how you're feeling.
     </p>
-    <p><strong>B:</strong> I have no idea har</p>
-  </div>
-</div>
+  </section>
 
-<div class="py-4 bg-base-300 p-6 rounded-box border-l-4 border-primary">
-  <p class="mb-4"><strong>A:</strong> That's good, try clicking this button:</p>
+  <section>
+    <h2 class="text-3xl font-bold mb-4 flex items-center gap-3">
+      <i class="fa-solid fa-brain text-xl"></i> More than you think
+    </h2>
+    <p class="text-lg leading-relaxed opacity-90">
+      We further divide how you feel about your day into two aspects: Activation and Valence.
+      These two dimensions are known by Russell's Circumplex Model of Affect, a widely accepted framework in psychology for understanding emotions.
+      Activation measures how energized or lethargic you feel, while Valence captures how positive or negative your emotions are.
+      By tracking both Activation and Valence, Daily Rating gives you a more nuanced understanding of your daily experiences.
+    </p>
+  </section>
 
-  <!-- Button showcasing Primary (Pink) -->
-  <button class="btn btn-primary btn-wide" (click)="handleClick()">
-    Clicked {{ clickCount() }} times
-  </button>
-
-  <p class="mt-4">
-    <strong>A:</strong> Did you know the {{ clickCount() }}th number is 
-    <span class="font-mono font-bold text-secondary text-xl underline decoration-pink-500">{{ fibonacci(clickCount()) }}</span>
-  </p>
-</div>
-
-<!-- Text Section showcasing Prose and Base Content -->
-<section class="mt-10 p-4 border-t border-base-300">
-  <h3 class="text-xl font-bold mb-4 text-accent">Long lorem ipsum section</h3>
-  <div class="prose lg:prose-xl text-base-content/80">
-    {{ loremIpsum() }}
-  </div>
-</section>
-
-<!-- Footer area to show State Colors -->
-<div class="flex flex-wrap gap-2 mt-8">
-  <div class="badge badge-success">Saved</div>
-  <div class="badge badge-warning">Draft</div>
-  <div class="badge badge-error">Deleted</div>
+  <section>
+    <h2 class="text-3xl font-bold mb-4 flex items-center gap-3">
+      <i class="fa-solid fa-shield-halved text-xl"></i> Just for your eyes
+    </h2>
+    <p class="text-lg leading-relaxed opacity-90">
+      Any data you input is stored locally on your device unless you choose to back it up to the cloud.
+      We take your privacy seriously and ensure that your data is secure and only accessible to you.
+      We achieve this by encrypting your data and using keys that only you have access to.
+      This way, you can feel confident that your personal information is safe with us.
+    </p>
+  </section>
 </div>

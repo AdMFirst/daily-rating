@@ -1,5 +1,4 @@
 import { Component, signal } from '@angular/core';
-
 @Component({
   selector: 'app-index',
   imports: [],
@@ -7,6 +6,10 @@ import { Component, signal } from '@angular/core';
   styleUrl: './index.css',
 })
 export class Index {
+
+  protected userRating = signal<number|null>(null);
+
+  // Sample signals
 
   protected readonly textFromIndex = signal('Some mumbo jumbo long text');
   protected readonly loremIpsum = signal('lorem ipsum dolor sit amet'.repeat(100));
