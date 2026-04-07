@@ -1,3 +1,53 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'tailwindcss';
-@plugin 'daisyui';
+@plugin "daisyui" {
+    themes: strawberry-milk-vibe --default, coffee --prefersdark, cupcake;
+};
+@plugin "daisyui/theme" {
+  name: "strawberry-milk-vibe";
+  default: true;
+  prefersdark: false;
+  color-scheme: "light";
+
+  /* Soft Pastel Backgrounds */
+  --color-base-100: oklch(98% 0.01 350);      /* Almost white pink */
+  --color-base-200: oklch(95% 0.02 350);      /* Soft blush */
+  --color-base-300: oklch(91% 0.03 350);      /* Defined pastel pink */
+  --color-base-content: oklch(35% 0.05 350);  /* Deep berry-grey for readability */
+
+  /* Primary: The Main Cute Pink */
+  --color-primary: oklch(85% 0.1 350);        /* Classic pastel pink */
+  --color-primary-content: oklch(30% 0.06 350);
+
+  /* Secondary: Soft Rose */
+  --color-secondary: oklch(75% 0.08 10);      /* Slightly warmer peach-pink */
+  --color-secondary-content: oklch(100% 0 0);
+
+  /* Accent: Muted Mauve */
+  --color-accent: oklch(88% 0.05 320);        /* Soft lavender-pink */
+  --color-accent-content: oklch(30% 0.05 320);
+
+  /* Neutral: Deep Rose Taupe (Better than pure black) */
+  --color-neutral: oklch(40% 0.04 350);
+  --color-neutral-content: oklch(98% 0.01 350);
+
+  /* Semantic colors adjusted for a softer palette */
+  --color-info: oklch(85% 0.05 240);          /* Soft baby blue */
+  --color-info-content: oklch(30% 0.05 240);
+  --color-success: oklch(88% 0.06 150);       /* Minty pastel green */
+  --color-success-content: oklch(30% 0.05 150);
+  --color-warning: oklch(90% 0.07 80);        /* Pale buttery yellow */
+  --color-warning-content: oklch(35% 0.06 80);
+  --color-error: oklch(80% 0.1 20);           /* Soft coral/salmon */
+  --color-error-content: oklch(25% 0.06 20);
+
+  /* Your existing "Cute" Geometry */
+  --radius-selector: 2rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}

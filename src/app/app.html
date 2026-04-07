@@ -1,20 +1,32 @@
-<!-- The nav acts as the top "binder" section -->
-<nav class="bg-pencil-pink p-4 mb-6 flex gap-6 items-center border-b-4 border-black shadow-md">
-  
-  <!-- Title: Styled like a bold label on a folder -->
-  <a routerLink="/" 
-     class="text-2xl font-black text-white bg-black px-4 py-1 -rotate-2 hover:rotate-0 transition-transform cursor-pointer">
-    Daily Rating
-  </a> 
+<nav class="navbar bg-base-100 shadow-md px-4 lg:px-8">
+  <!-- Left Side: Logo + Desktop Links -->
+  <div class="navbar-start">
+    <a routerLink="/" class="text-xl font-bold tracking-tight">
+      Daily Rating
+    </a>
 
-  <!-- Button: Styled like a neon sticker -->
-  <a routerLink="/pricing" 
-     class="bg-highlighter-yellow text-black font-bold py-1 px-4 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all cursor-pointer">
-    Pricing
-  </a>
+    <!-- Desktop Menu: Hidden on small screens, flex on small+ -->
+    <ul class="menu menu-horizontal hidden sm:flex gap-2"> 
+      <li><a routerLink="/timeline" class="font-medium">Timeline</a></li>
+      <li><a routerLink="/pricing" class="font-medium">Pricing</a></li>
+    </ul>
+  </div>
+
+  <!-- Right Side: Burger Menu (Mobile Only) -->
+  <div class="navbar-end">
+    <!-- dropdown-end prevents the menu from clipping off the screen -->
+    <div class="dropdown dropdown-end">
+      <label tabindex="0" class="btn btn-ghost sm:hidden">
+        <i class="fa-solid fa-bars fa-lg"></i>
+      </label>
+      <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-lg bg-base-100 rounded-box w-52 border border-base-200">
+        <li><a routerLink="/pricing">Pricing</a></li>
+        <li><a routerLink="/timeline">Timeline</a></li>
+      </ul>
+    </div>
+  </div>
 </nav>
 
-<!-- This is where your school-themed pages will inject -->
-<main class="px-6">
+<main class="container mx-auto p-6">
   <router-outlet />
 </main>
