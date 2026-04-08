@@ -3,48 +3,63 @@
   <div class="hero-content text-center">
     <div class="max-w-xl">
       <h1 class="text-5xl font-bold">How is your day so far?</h1>
-      
-      <!-- 5 star input with Font Awesome -->
+
       <div class="py-6">
         <div class="rating gap-2 w-full max-w-3xl mx-auto">
           <input type="radio" name="rating-1" (change)="userRating.set(1)"
                 class="mask mask-star-2 bg-primary flex-1 aspect-square size-full" />
-                
           <input type="radio" name="rating-1" (change)="userRating.set(2)"
                 class="mask mask-star-2 bg-primary flex-1 aspect-square size-full" />
-                
           <input type="radio" name="rating-1" (change)="userRating.set(3)"
                 class="mask mask-star-2 bg-primary flex-1 aspect-square size-full" />
-                
           <input type="radio" name="rating-1" (change)="userRating.set(4)"
                 class="mask mask-star-2 bg-primary flex-1 aspect-square size-full" />
-                
           <input type="radio" name="rating-1" (change)="userRating.set(5)"
                 class="mask mask-star-2 bg-primary flex-1 aspect-square size-full" />
         </div>
-
       </div>
-      <p>debug userRating: {{userRating()}}</p>
 
-      @if (userRating() !== null) {
-        <div class="container mt-12" >
-          <h3 class="text-xl font-semibold mb-4">How do you feel about your day?</h3>
-          
-          <!-- Placeholder for clock like input -->
-          <div class="flex justify-center py-4">
-            <div class="w-80 h-80 border-2 border-primary rounded-full flex items-center justify-center relative group cursor-pointer">
-              <i class="fa-solid fa-clock-rotate-left text-4xl opacity-50 group-hover:rotate-180 transition-transform duration-700"></i>
-              <span class="absolute -top-6 text-xs uppercase tracking-widest font-bold">Activation</span>
-              <span class="absolute -right-12 text-xs uppercase tracking-widest font-bold rotate-90">Valence</span>
+      <!-- <p>debug userRating: {{ userRating() }}</p> -->
+
+      <div
+        class="grid transition-[grid-template-rows] duration-700 ease-out"
+        [class.grid-rows-[1fr]]="userRating() !== null"
+        [class.grid-rows-[0fr]]="userRating() === null"
+      >
+        <div class="overflow-hidden">
+          <div
+            class="container mt-12 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+            [class.opacity-100]="userRating() !== null"
+            [class.translate-y-0]="userRating() !== null"
+            [class.delay-100]="userRating() !== null"
+            [class.opacity-0]="userRating() === null"
+            [class.translate-y-3]="userRating() === null"
+          >
+            <h3 class="text-xl font-semibold mb-4">How do you feel about your day?</h3>
+
+            <div class="flex justify-center py-4">
+              <div class="relative">
+                <div
+                  #moodPad
+                  class="w-70 h-70 rounded-full border-2 border-primary touch-none"
+                ></div>
+
+                <span class="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-6 text-xs uppercase tracking-widest font-bold">
+                  Activation
+                </span>
+
+                <span class="absolute right-0 top-1/2 translate-x-12 -translate-y-1/2 text-xs uppercase tracking-widest font-bold rotate-90">
+                  Valence
+                </span>
+              </div>
             </div>
+
+            <p class="mt-4 font-semibold text-xl italic">{{ moodLabel() }}?</p>
+            <p class="text-sm opacity-70">Activation: {{ activation().toFixed(2) }}</p>
+            <p class="text-sm opacity-70">Valence: {{ valence().toFixed(2) }}</p>
           </div>
-          
-          <p class="mt-4 font-semibold text-xl italic">Angry?</p>
-          <p class="text-sm opacity-70">Activation: 0.80</p>
-          <p class="text-sm opacity-70">Valence: 0.28</p>
         </div>
-      }
-      
+      </div>
     </div>
   </div>
 </div>
