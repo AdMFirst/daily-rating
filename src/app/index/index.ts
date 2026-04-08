@@ -92,6 +92,17 @@ export class Index {
     return Math.min(Math.max(value, min), max);
   }
 
+
+  protected save() {
+    const savedData = {
+      valance: this.valence(),
+      activation: this.activation(),
+      rating: this.userRating(),
+      date: new Date().toISOString()
+    }
+    console.log(savedData);
+  }
+
   // Sample signals ignore them
 
   // protected readonly textFromIndex = signal('Some mumbo jumbo long text');

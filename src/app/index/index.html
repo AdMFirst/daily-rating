@@ -6,7 +6,7 @@
 
       <div class="py-6">
         <div class="rating gap-2 w-full max-w-3xl mx-auto">
-          <input type="radio" name="rating-1" (change)="userRating.set(1)"
+          <input type="radio" name="rating-1" (change)="userRating.set(1)"  
                 class="mask mask-star-2 bg-primary flex-1 aspect-square size-full" />
           <input type="radio" name="rating-1" (change)="userRating.set(2)"
                 class="mask mask-star-2 bg-primary flex-1 aspect-square size-full" />
@@ -26,38 +26,48 @@
         [class.grid-rows-[1fr]]="userRating() !== null"
         [class.grid-rows-[0fr]]="userRating() === null"
       >
-        <div class="overflow-hidden">
-          <div
-            class="container mt-12 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
-            [class.opacity-100]="userRating() !== null"
-            [class.translate-y-0]="userRating() !== null"
-            [class.delay-100]="userRating() !== null"
-            [class.opacity-0]="userRating() === null"
-            [class.translate-y-3]="userRating() === null"
-          >
-            <h3 class="text-xl font-semibold mb-4">How do you feel about your day?</h3>
+        <div
+          class="container mt-12 overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+          [class.opacity-100]="userRating() !== null"
+          [class.translate-y-0]="userRating() !== null"
+          [class.delay-100]="userRating() !== null"
+          [class.opacity-0]="userRating() === null"
+          [class.translate-y-3]="userRating() === null"
+        >
+          <h3 class="text-xl md:text-3xl font-semibold mb-4">How do you feel about your day?</h3>
 
-            <div class="flex justify-center py-4">
-              <div class="relative">
-                <div
-                  #moodPad
-                  class="w-70 h-70 rounded-full border-2 border-primary touch-none"
-                ></div>
+          <div class="flex justify-center py-4">
+            <div class="relative">
+              <div
+                #moodPad
+                class="w-70 h-70 rounded-full border-2 border-primary touch-none"
+              ></div>
 
-                <span class="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-6 text-xs uppercase tracking-widest font-bold">
-                  Activation
-                </span>
+              <span class="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-6 text-xs uppercase tracking-widest font-bold">
+                Activation
+              </span>
 
-                <span class="absolute right-0 top-1/2 translate-x-12 -translate-y-1/2 text-xs uppercase tracking-widest font-bold rotate-90">
-                  Valence
-                </span>
-              </div>
+              <span class="absolute right-0 top-1/2 translate-x-12 -translate-y-1/2 text-xs uppercase tracking-widest font-bold rotate-90">
+                Valence
+              </span>
             </div>
-
-            <p class="mt-4 font-semibold text-xl italic">{{ moodLabel() }}?</p>
-            <p class="text-sm opacity-70">Activation: {{ activation().toFixed(2) }}</p>
-            <p class="text-sm opacity-70">Valence: {{ valence().toFixed(2) }}</p>
           </div>
+
+          <div class="flex justify-between items-center md:w-8/10 mx-auto">
+            <div class="text-start">
+              <p class="font-semibold text-xl italic">{{ moodLabel() }}?</p>
+              <p class="text-sm opacity-70">Activation: {{ activation().toFixed(2) }}</p>
+              <p class="text-sm opacity-70">Valence: {{ valence().toFixed(2) }}</p>
+            </div>
+            <div>
+              <button class="btn btn-lg btn-primary" (click)="save()">
+                save it!
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+            </div>
+          </div>
+          
+
         </div>
       </div>
     </div>
