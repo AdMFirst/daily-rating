@@ -73,55 +73,11 @@
   </div>
 </div>
 
-<dialog class="modal" [class.modal-open]="showPasswordEntry()">
-  <form method="dialog" class="modal-box" (ngSubmit)="handleModalSave(pwdInput.value)">
-    <h3 class="font-bold text-lg">Enter your password</h3>
-    <p class="py-4">
-      To protect your data, please enter your password to save your mood entry.
-    </p>
-
-    <div class="form-control w-full items-center gap-2">
-      <label for="pwdInput" class="sr-only">Password</label>
-
-      <div class="relative w-full">
-        <input
-          #pwdInput
-          id="pwdInput"
-          [type]="showPassword() ? 'text' : 'password'"
-          placeholder="Type here"
-          minlength="8"
-          required
-          class="input input-bordered w-full block mx-auto pr-16"
-        />
-
-        <button
-          type="button"
-          class="btn btn-ghost btn-xs absolute right-2 top-1/2 -translate-y-1/2"
-          (click)="showPassword.set(!showPassword())"
-          [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'"
-          [attr.aria-pressed]="showPassword()"
-        >
-          {{ showPassword() ? 'Hide' : 'Show' }}
-        </button>
-      </div>
-
-    </div>
-
-    <div class="modal-action">
-      <button class="btn" type="button" (click)="showPasswordEntry.set(false)">
-        Cancel
-      </button>
-
-      <button
-        class="btn btn-primary"
-        type="submit"
-        (click)="pwdInput.reportValidity() && handleModalSave(pwdInput.value)"
-      >
-        Save
-      </button>
-    </div>
-  </form>
-</dialog>
+<app-password-dialog
+  [isOpen]="showPasswordEntry()"
+  (submitted)="handleModalSave($event)"
+  (canceled)="showPasswordEntry.set(false)"
+/>
 
 
 <!-- Section for explaining the app -->

@@ -1,9 +1,10 @@
 import { Component, computed, ElementRef, signal, ViewChild } from '@angular/core';
 import nipplejs from 'nipplejs';
 import { database } from '../core/services/database';
+import { PasswordDialog } from '../components/password-dialog/password-dialog';
 @Component({
   selector: 'app-index',
-  imports: [],
+  imports: [PasswordDialog],
   templateUrl: './index.html',
   styleUrl: './index.css',
 })
@@ -59,7 +60,6 @@ export class Index {
   });
 
   protected showPasswordEntry = signal(false);
-  protected showPassword = signal(false);
 
   private manager: any;
 
