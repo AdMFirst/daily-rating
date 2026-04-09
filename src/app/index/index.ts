@@ -1,7 +1,9 @@
-import { Component, computed, ElementRef, signal, ViewChild } from '@angular/core';
+import { Component, computed, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import nipplejs from 'nipplejs';
-import { database } from '../core/services/database';
+import { database, MoodEntry } from '../core/services/database';
 import { PasswordDialog } from '../components/password-dialog/password-dialog';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-index',
   imports: [PasswordDialog],
@@ -10,6 +12,8 @@ import { PasswordDialog } from '../components/password-dialog/password-dialog';
 })
 export class Index {
   @ViewChild('moodPad', { static: false }) moodPad?: ElementRef<HTMLDivElement>;
+
+  private router = inject(Router);
 
   // 5 star rating
   protected userRating = signal<number|null>(null);
@@ -124,7 +128,20 @@ export class Index {
   }
 
   protected async proceedSave() {
-    console.log('test...')
+    const data: MoodEntry = {
+      date: new Date().toISOString(),
+      valance: this.valence(),
+      activation: this.activation(),
+      rating: this.userRating() ?? 0,
+    }
+    
+    try {
+      await database.save(data)
+
+      this.router.navigate(['/timeline']);
+    } catch (error) {
+      console.error('Error saving mood entry:', error);
+    }
   }
 
   // Sample signals ignore them

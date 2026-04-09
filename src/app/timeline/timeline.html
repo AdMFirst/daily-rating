@@ -5,7 +5,7 @@
       <p class="opacity-70 text-lg text-secondary font-medium italic">Your journey, day by day.</p>
     </div>
     <div class="hidden sm:block">
-        <i class="fa-solid fa-timeline text-5xl opacity-20 text-primary"></i>
+        <i class="fa-solid fa-timeline text-5xl opacity-20 text-neutral"></i>
     </div>
   </div>
 
@@ -23,3 +23,9 @@
     </a>
   </div>
 </div>
+
+<app-password-dialog
+  [isOpen]="showPasswordEntry()"
+  (submitted)="handleModalSubmit($event)"
+  (canceled)="showPasswordEntry.set(false)"
+/>
