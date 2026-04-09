@@ -6,8 +6,8 @@
 
       <div class="py-6">
         <div class="rating gap-2 w-full max-w-3xl mx-auto">
-          <input type="radio" name="rating-1" (change)="userRating.set(1)"  
-                class="mask mask-star-2 bg-primary flex-1 aspect-square size-full" />
+          <input type="radio" name="rating-1" (change)="userRating.set(1)" 
+           class="mask mask-star-2 bg-primary flex-1 aspect-square size-full" />
           <input type="radio" name="rating-1" (change)="userRating.set(2)"
                 class="mask mask-star-2 bg-primary flex-1 aspect-square size-full" />
           <input type="radio" name="rating-1" (change)="userRating.set(3)"
@@ -60,19 +60,68 @@
               <p class="text-sm opacity-70">Valence: {{ valence().toFixed(2) }}</p>
             </div>
             <div>
-              <button class="btn btn-lg btn-primary" (click)="save()">
+              <button class="btn btn-lg btn-primary" (click)="HandleSaveClicked()">
                 save it!
                 <i class="fa-solid fa-pen-to-square"></i>
               </button>
             </div>
           </div>
           
-
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<dialog class="modal" [class.modal-open]="showPasswordEntry()">
+  <form method="dialog" class="modal-box" (ngSubmit)="handleModalSave(pwdInput.value)">
+    <h3 class="font-bold text-lg">Enter your password</h3>
+    <p class="py-4">
+      To protect your data, please enter your password to save your mood entry.
+    </p>
+
+    <div class="form-control w-full items-center gap-2">
+      <label for="pwdInput" class="sr-only">Password</label>
+
+      <div class="relative w-full">
+        <input
+          #pwdInput
+          id="pwdInput"
+          [type]="showPassword() ? 'text' : 'password'"
+          placeholder="Type here"
+          minlength="8"
+          required
+          class="input input-bordered w-full block mx-auto pr-16"
+        />
+
+        <button
+          type="button"
+          class="btn btn-ghost btn-xs absolute right-2 top-1/2 -translate-y-1/2"
+          (click)="showPassword.set(!showPassword())"
+          [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'"
+          [attr.aria-pressed]="showPassword()"
+        >
+          {{ showPassword() ? 'Hide' : 'Show' }}
+        </button>
+      </div>
+
+    </div>
+
+    <div class="modal-action">
+      <button class="btn" type="button" (click)="showPasswordEntry.set(false)">
+        Cancel
+      </button>
+
+      <button
+        class="btn btn-primary"
+        type="submit"
+        (click)="pwdInput.reportValidity() && handleModalSave(pwdInput.value)"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</dialog>
 
 
 <!-- Section for explaining the app -->
@@ -108,7 +157,7 @@
     <p class="text-lg leading-relaxed opacity-90">
       Any data you input is stored locally on your device unless you choose to back it up to the cloud.
       We take your privacy seriously and ensure that your data is secure and only accessible to you.
-      We achieve this by encrypting your data and using keys that only you have access to.
+      We achieve this by protecting your data using keys that only you have access to.
       This way, you can feel confident that your personal information is safe with us.
     </p>
   </section>

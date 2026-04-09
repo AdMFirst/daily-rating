@@ -1,5 +1,6 @@
 import { Component, computed, ElementRef, signal, ViewChild } from '@angular/core';
 import nipplejs from 'nipplejs';
+import { database } from '../core/services/database';
 @Component({
   selector: 'app-index',
   imports: [],
@@ -57,6 +58,9 @@ export class Index {
     return nearest.label;
   });
 
+  protected showPasswordEntry = signal(false);
+  protected showPassword = signal(false);
+
   private manager: any;
 
   ngAfterViewInit(): void {
@@ -93,14 +97,34 @@ export class Index {
   }
 
 
-  protected save() {
-    const savedData = {
-      valance: this.valence(),
-      activation: this.activation(),
-      rating: this.userRating(),
-      date: new Date().toISOString()
+  protected async HandleSaveClicked() {
+    try {
+      const unlocked = await database.restoreSession();
+      if (unlocked) {
+        await this.proceedSave()
+      } else {
+        this.showPasswordEntry.set(true);
+      }
+    } catch (errror) {
+      console.error('Error restoring session:', errror);
+      this.showPasswordEntry.set(true);
     }
-    console.log(savedData);
+  }
+
+  protected async handleModalSave(password: string) {
+    try {
+      console.debug('Attempting to unlock database with password:', password)
+      await database.unlock(password);
+      await this.proceedSave();
+      this.showPasswordEntry.set(false);
+    } catch (error) {
+      console.error('Error unlocking database:', error);
+    }
+    
+  }
+
+  protected async proceedSave() {
+    console.log('test...')
   }
 
   // Sample signals ignore them
