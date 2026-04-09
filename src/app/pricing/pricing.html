@@ -1,5 +1,45 @@
-<h1>Pricing</h1>
-<p>This app is completely free!</p>
-<p>If you'd like to support us, you can donate:</p>
-<button (click)="donateTrakteer()">Donate via Trakteer</button>
-<button (click)="donateSociabuzz()">Donate via Sociabuzz</button>
+<div class="max-w-2xl mx-auto py-12 px-6">
+  <!-- Hero section for Pricing -->
+  <div class="text-center mb-16">
+    <h1 class="text-5xl font-bold mb-6">Pricing</h1>
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 text-primary font-bold text-sm uppercase tracking-widest mb-6">
+      <i class="fa-solid fa-star"></i>
+      Completely Free
+      <i class="fa-solid fa-star"></i>
+    </div>
+    <p class="text-xl leading-relaxed opacity-90 max-w-lg mx-auto">
+      Daily Rating is a tool for personal growth, and we believe it should be accessible to everyone. 
+      No subscriptions, no hidden fees, just you and your journey.
+    </p>
+  </div>
+
+  <!-- Donation Card -->
+  <div class="card bg-base-200 shadow-xl border border-base-300">
+    <div class="card-body items-center text-center p-8 md:p-12">
+      <div class="w-16 h-16 bg-primary text-primary-content rounded-full flex items-center justify-center mb-6 shadow-lg">
+        <i class="fa-solid fa-heart text-2xl"></i>
+      </div>
+      
+      <h2 class="card-title text-3xl font-bold mb-2">Support Our Mission</h2>
+      <p class="text-lg opacity-80 mb-10">
+        If you find value in this app and would like to help us keep it running and improving, 
+        consider making a small donation. Every bit helps!
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 w-full justify-center">
+        <button (click)="donateTrakteer()" class="btn btn-primary btn-lg gap-3 sm:px-8">
+          <i class="fa-solid fa-coffee"></i>
+          Donate via Trakteer
+        </button>
+        <button (click)="donateSociabuzz()" class="btn btn-secondary btn-lg gap-3 sm:px-8">
+          <i class="fa-solid fa-rocket"></i>
+          Donate via Sociabuzz
+        </button>
+      </div>
+
+      <div class="mt-8 pt-8 border-t border-base-300 w-full opacity-60 text-sm">
+        <p>Thank you for being part of our community!</p>
+      </div>
+    </div>
+  </div>
+</div>
