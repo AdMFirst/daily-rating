@@ -12,7 +12,7 @@
   /* Soft Pastel Backgrounds */
   --color-base-100: oklch(98% 0.01 350);      /* Almost white pink */
   --color-base-200: oklch(95% 0.02 350);      /* Soft blush */
-  --color-base-300: oklch(91% 0.03 350);      /* Defined pastel pink */
+  --color-base-300: oklch(89% 0.04 350);      /* Defined pastel pink */
   --color-base-content: oklch(35% 0.05 350);  /* Deep berry-grey for readability */
 
   /* Primary: The Main Cute Pink */
@@ -43,7 +43,7 @@
 
   /* Your existing "Cute" Geometry */
   --radius-selector: 2rem;
-  --radius-field: 0.5rem;
+  --radius-field: 1rem;
   --radius-box: 1rem;
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
