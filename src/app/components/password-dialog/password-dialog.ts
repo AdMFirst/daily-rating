@@ -11,7 +11,7 @@ export class PasswordDialog {
   isOpen = input<boolean>(false);
   title = input<string>('Enter your password');
   description = input<string>(
-    'To protect your data, please enter your password to save your mood entry.'
+    'Your data is password protected. Please enter your password or create a new one to save your mood entry.'
   );
 
   submitted = output<string>();

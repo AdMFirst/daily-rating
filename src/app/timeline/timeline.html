@@ -9,23 +9,71 @@
     </div>
   </div>
 
-  <div class="flex flex-col card px-12 py-6 bg-base-200 items-center justify-center container">
-    <div class="w-20 h-20 bg-base-300  rounded-full flex items-center justify-center mb-6">
-        <i class="fa-solid fa-calendar-day text-3xl"></i>
+  @if(pageState() == 'loading') {
+    <!-- skeleton -->
+    <div class="animate-pulse flex flex-col card px-12 py-6 min-h-[200px] bg-base-200 items-center justify-center container">
+
     </div>
-    <h2 class="text-2xl font-semibold opacity-50">No ratings yet</h2>
-    <p class="opacity-40 mt-2 mb-8">Start tracking your mood today!</p>
-    <a routerLink="/">
-        <button  class="btn btn-primary">
-            <i class="fa-solid fa-plus"></i>
-            Rate Your Day
-        </button>
-    </a>
-  </div>
+    
+  }
+
+  @else if (pageState() === 'locked') {
+    <div  class="flex flex-col card px-12 py-6 bg-base-200 items-center justify-center container">
+      <div class="w-20 h-20 bg-base-300  rounded-full flex items-center justify-center mb-6">
+          <i class="fa-solid fa-lock text-3xl"></i>
+      </div>
+      <h2 class="text-2xl font-semibold opacity-50">Timeline Locked</h2>
+      <p class="opacity-40 mt-2 mb-8">Enter your password to unlock the timeline.</p>
+      <button (click)="showPasswordEntry.set(true)" class="btn btn-primary">
+          <i class="fa-solid fa-lock"></i>
+          Enter Password
+      </button>
+    </div>
+  }
+
+  @else if (pageState() === 'error') {
+    <div  class="flex flex-col card px-12 py-6 bg-base-200 items-center justify-center container">
+      <div class="w-20 h-20 bg-base-300  rounded-full flex items-center justify-center mb-6">
+          <i class="fa-solid fa-warning text-3xl"></i>
+      </div>
+      <h2 class="text-2xl font-semibold opacity-50">Error</h2>
+      <p class="opacity-40 mt-2 mb-8">Something went wrong. Please try again.</p>
+
+    </div>
+  }
+
+  @else if (pageState() === 'ready') {
+    <div  class="flex flex-col card px-12 py-6 bg-base-200 items-center justify-center container">
+      @if (entries().length === 0 ){
+        <div class="w-20 h-20 bg-base-300  rounded-full flex items-center justify-center mb-6">
+          <i class="fa-solid fa-calendar-day text-3xl"></i>
+        </div>
+        <h2 class="text-2xl font-semibold opacity-50">No ratings yet</h2>
+        <p class="opacity-40 mt-2 mb-8">Start tracking your mood today!</p>
+        <a routerLink="/">
+            <button  class="btn btn-primary">
+                <i class="fa-solid fa-plus"></i>
+                Rate Your Day
+            </button>
+        </a>
+      }
+      @else {
+        <h3>test ok</h3>
+        @for (entry of entries(); track entry.id) {
+          <div class="card bg-base-300">
+            <div class="card-body">
+              <p>testing {{entry.rating}}</p>
+            </div>
+          </div>
+        }
+      }
+    </div>
+  }
 </div>
 
 <app-password-dialog
   [isOpen]="showPasswordEntry()"
   (submitted)="handleModalSubmit($event)"
   (canceled)="showPasswordEntry.set(false)"
+  [description]="'Your data is password protected. Please enter your password or create a new one to access timeline.'"
 />
