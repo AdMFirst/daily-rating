@@ -2,13 +2,14 @@ import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { database, MoodEntry } from '../core/services/database';
 import { PasswordDialog } from '../components/password-dialog/password-dialog';
+import { Calendar } from '../components/calendar/calendar';
 
 
 type pageState = 'loading' | 'locked' | 'ready' | 'error';
 
 @Component({
   selector: 'app-timeline',
-  imports: [RouterLink, PasswordDialog],
+  imports: [RouterLink, PasswordDialog, Calendar],
   templateUrl: './timeline.html',
   styles: '',
 })
