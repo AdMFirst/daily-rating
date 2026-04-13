@@ -119,8 +119,8 @@ export class Calendar {
   }
 
   private getColorClass(hasEntries: boolean, rating: number, isCurrentMonth: boolean): string {
-    if (!isCurrentMonth) return 'bg-neutral text-neutral-content opacity-20';
-    if (!hasEntries) return 'bg-accent text-accent-content opacity-30';
+    if (!isCurrentMonth) return 'bg-neutral text-neutral-content opacity-50';
+    if (!hasEntries) return 'bg-accent text-accent-content opacity-50';
     
     // Rating 1 to 5
     const roundedRating = Math.round(rating);
