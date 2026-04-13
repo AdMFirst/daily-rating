@@ -27,6 +27,7 @@ export class Calendar {
   moodEntries = input<MoodEntry[]>([]);
 
   protected viewDate = signal(new Date());
+  protected animating = signal(false);
   protected selectedDayEntries = signal<MoodEntry[]>([]);
   protected isModalOpen = signal(false);
 
@@ -98,17 +99,17 @@ export class Calendar {
   protected nextMonth() {
     const d = new Date(this.viewDate());
     d.setMonth(d.getMonth() + 1);
-    this.viewDate.set(d);
+    this.startAnimation(d);
   }
 
   protected prevMonth() {
     const d = new Date(this.viewDate());
     d.setMonth(d.getMonth() - 1);
-    this.viewDate.set(d);
+    this.startAnimation(d);
   }
 
   protected goToToday() {
-    this.viewDate.set(new Date());
+    this.startAnimation(new Date());
   }
 
   protected onDayClick(day: any) {
@@ -117,6 +118,10 @@ export class Calendar {
       this.isModalOpen.set(true);
     }
   }
+
+  /**
+   * Triggers the fade animation and updates the view date after the transition.
+   */
 
   private getColorClass(hasEntries: boolean, rating: number, isCurrentMonth: boolean): string {
     if (!isCurrentMonth) return 'bg-neutral text-neutral-content opacity-50';
@@ -132,6 +137,17 @@ export class Calendar {
       case 5: return 'bg-success text-success-content';
       default: return 'bg-accent text-accent-content';
     }
+  }
+
+  /**
+   * Triggers a slide‑in animation before updating the month.
+   */
+  private startAnimation(newDate: Date) {
+    this.animating.set(true);
+    setTimeout(() => {
+      this.viewDate.set(newDate);
+      this.animating.set(false);
+    }, 300);
   }
   
   protected formatEntryTime(dateStr: string): string {

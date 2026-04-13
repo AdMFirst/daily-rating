@@ -1,12 +1,13 @@
 <div class="w-full">
   <div class="flex justify-between items-center mb-6">
-    <h2 class="text-xl md:text-2xl font-bold capitalize">{{ monthName() }}</h2>
-    <div class="join bg-base-300 p-1 rounded-xl">
-      <button class="btn btn-ghost btn-sm join-item" (click)="prevMonth()">
+    <h2 class="text-xl md:text-2xl font-bold capitalize transition-opacity duration-300"
+      [class.opacity-0]="animating()" [class.opacity-100]="!animating()">{{ monthName() }}</h2>
+    <div class="join ">
+      <button class="btn btn-primary btn-sm join-item" (click)="prevMonth()">
         <i class="fa-solid fa-chevron-left"></i>
       </button>
-      <button class="btn btn-ghost btn-sm join-item text-xs" (click)="goToToday()">Today</button>
-      <button class="btn btn-ghost btn-sm join-item" (click)="nextMonth()">
+      <button class="btn btn-sm btn-primary join-item text-xs" (click)="goToToday()">Today</button>
+      <button class="btn btn-primary btn-sm join-item" (click)="nextMonth()">
         <i class="fa-solid fa-chevron-right"></i>
       </button>
     </div>
@@ -14,7 +15,8 @@
 
   <!-- Using @if with viewDate to trigger animation on month change -->
   @if (viewDate(); as date) {
-    <div class="grid grid-cols-7 gap-1 md:gap-2">
+    <div class="grid grid-cols-7 gap-1 md:gap-2 transition-opacity duration-300"
+         [class.opacity-0]="animating()" [class.opacity-100]="!animating()">
       <!-- Day headers -->
       @for (dayName of ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']; track dayName) {
         <div class="text-center font-bold text-[10px] py-1 opacity-40 uppercase tracking-widest">{{ dayName }}</div>
