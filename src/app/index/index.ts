@@ -3,6 +3,7 @@ import nipplejs from 'nipplejs';
 import { database, MoodEntry } from '../core/services/database';
 import { PasswordDialog } from '../components/password-dialog/password-dialog';
 import { Router } from '@angular/router';
+import { moodLabelFromVA } from '../core/utils/mood-translator';
 
 @Component({
   selector: 'app-index',
@@ -23,44 +24,7 @@ export class Index {
   protected activation = signal(0);
 
   protected moodLabel = computed(() => {
-    const v = this.valence();      // already clamped to [-1, 1]
-    const a = this.activation();   // already clamped to [-1, 1]
-
-    const anchors = [
-      { label: 'alert',     v:  0.00, a:  0.95 },
-      { label: 'excited',   v:  0.50, a:  0.85 },
-      { label: 'elated',    v:  0.70, a:  0.70 },
-      { label: 'happy',     v:  0.85, a:  0.20 },
-      { label: 'content',   v:  0.70, a: -0.20 },
-      { label: 'relaxed',   v:  0.50, a: -0.60 },
-      { label: 'serene',    v:  0.20, a: -0.85 },
-      { label: 'calm',      v:  0.00, a: -0.95 },
-      { label: 'fatigued',  v: -0.20, a: -0.85 },
-      { label: 'depressed', v: -0.70, a: -0.70 },
-      { label: 'sad',       v: -0.85, a: -0.20 },
-      { label: 'bored',     v: -0.50, a: -0.60 },
-      { label: 'distressed',v: -0.70, a:  0.70 },
-      { label: 'angry',     v: -0.85, a:  0.20 },
-      { label: 'tense',     v: -0.50, a:  0.85 },
-      { label: 'nervous',   v: -0.20, a:  0.95 },
-    ];
-
-    const radius = Math.hypot(v, a);
-
-    if (radius < 0.18) return 'neutral';
-
-    let nearest = anchors[0];
-    let minDistance = Infinity;
-
-    for (const anchor of anchors) {
-      const distance = Math.hypot(v - anchor.v, a - anchor.a);
-      if (distance < minDistance) {
-        minDistance = distance;
-        nearest = anchor;
-      }
-    }
-
-    return nearest.label;
+    return moodLabelFromVA(this.valence(), this.activation());
   });
 
   protected showPasswordEntry = signal(false);
