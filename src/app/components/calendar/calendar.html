@@ -22,8 +22,8 @@
 
       <!-- Calendar days -->
       @for (day of days(); track day.date.toISOString()) {
-        <div 
-          class="aspect-square flex flex-col items-center justify-center rounded-2xl cursor-pointer transition-all duration-300 hover:scale-105 relative group shadow-sm"
+          <div 
+            class="aspect-square flex flex-col items-center justify-center rounded-2xl cursor-pointer hover:scale-105 relative group shadow-sm"
           [ngClass]="day.colorClass"
           (click)="onDayClick(day)"
         >
