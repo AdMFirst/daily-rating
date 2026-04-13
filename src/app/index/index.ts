@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   selector: 'app-index',
   imports: [PasswordDialog],
   templateUrl: './index.html',
-  styleUrl: './index.css',
+  styles: '',
 })
 export class Index {
   @ViewChild('moodPad', { static: false }) moodPad?: ElementRef<HTMLDivElement>;

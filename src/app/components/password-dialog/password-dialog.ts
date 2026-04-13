@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-password-dialog',
   imports: [FormsModule],
   templateUrl: './password-dialog.html',
-  styleUrl: './password-dialog.css',
+  styles: '',
 })
 export class PasswordDialog {
   isOpen = input<boolean>(false);

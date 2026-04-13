@@ -10,7 +10,7 @@ type pageState = 'loading' | 'locked' | 'ready' | 'error';
   selector: 'app-timeline',
   imports: [RouterLink, PasswordDialog],
   templateUrl: './timeline.html',
-  styleUrl: './timeline.css',
+  styles: '',
 })
 export class Timeline {
 
