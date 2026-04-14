@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { MoodEntry } from '../../core/services/database';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartOptions, LegendItem } from 'chart.js';
@@ -11,21 +11,30 @@ import { ChartConfiguration, ChartOptions, LegendItem } from 'chart.js';
 })
 export class ScatterPlot {
   moodEntries = input<MoodEntry[]>([]);
+  protected duration = signal(-1); // limit how many days are shown, -1 for all
+  protected entries = computed(() => {
+    if (this.duration() < 0) {
+      return this.moodEntries();
+    }
+    const cutoffDate = new Date();
+    cutoffDate.setDate(cutoffDate.getDate() - this.duration());
+    return this.moodEntries().filter(entry => new Date(entry.date) >= cutoffDate);
+  });
 
 
   readonly ratingLegend = [
-    { rating: 1, label: 'Very bad' },
-    { rating: 2, label: 'Bad' },
-    { rating: 3, label: 'Okay' },
-    { rating: 4, label: 'Good' },
-    { rating: 5, label: 'Great' },
+    { rating: 1, label: 'stars' },
+    { rating: 2, label: 'stars' },
+    { rating: 3, label: 'stars' },
+    { rating: 4, label: 'stars' },
+    { rating: 5, label: 'stars' },
   ];
 
   chartData = computed<ChartConfiguration<'scatter'>['data']>(() => ({
     datasets: [
       {
         label: 'Mood',
-        data: this.moodEntries().map(m => ({
+        data: this.entries().map(m => ({
           x: m.valance,
           y: m.activation,
           rating: m.rating,
@@ -33,8 +42,8 @@ export class ScatterPlot {
         })),
         pointRadius: 6,
         pointHoverRadius: 8,
-        pointBackgroundColor: this.moodEntries().map(m => this.getRatingThemeColors(m.rating).fill),
-        pointBorderColor: this.moodEntries().map(m => this.getRatingThemeColors(m.rating).stroke),
+        pointBackgroundColor: this.entries().map(m => this.getRatingThemeColors(m.rating).fill),
+        pointBorderColor: this.entries().map(m => this.getRatingThemeColors(m.rating).stroke),
         pointBorderWidth: 1,
       },
     ],
@@ -70,7 +79,7 @@ export class ScatterPlot {
             const colors = this.getRatingThemeColors(item.rating);
 
             return {
-              text: `${item.rating} - ${item.label}`,
+              text: `${item.rating} ${item.label}`,
               fillStyle: colors.fill,
               fontColor: this.getThemeColor('--color-base-content', '#ffffff'),
               strokeStyle: colors.stroke,

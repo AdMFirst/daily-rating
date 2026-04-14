@@ -1,6 +1,23 @@
 
-<div class="flex flex-col gap-4 h-full">
-    <p>Analysis of all historical data</p>
+<div class="flex flex-col gap-2 h-full">
+    <div class="flex flex-row w-full items-center justify-between">
+        <p class="text-md md:text-2xl font-bold capitalize">Mood map</p>
+        <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost p-1 aspect-square"><i class="fa-solid fa-filter "></i></div>
+            <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                <li><a (click)="duration.set(-1)">Show all data</a></li>
+                <li><a (click)="duration.set(365)">Show last 1 year</a></li>
+                <li><a (click)="duration.set(180)">Show last 6 months</a></li>
+                <li><a (click)="duration.set(90)">Show last 3 months</a></li>
+                <li><a (click)="duration.set(30)">Show last 1 month</a></li>
+                <li><a (click)="duration.set(14)">Show last 2 weeks</a></li>
+                <li><a (click)="duration.set(7)">Show last 1 week</a></li>
+            </ul>
+        </div>
+    </div>
+    <span class="text-sm text-muted-foreground tracking-tighter">
+        Spot patterns in where your entries gather and which areas tend to correspond to better, neutral, or worse days.
+    </span>
     <div class="p-2 bg-accent/50 rounded-lg aspect-square xl:aspect-auto xl:flex-1 xl:h-full">
         <canvas 
             class="w-full h-full block"
