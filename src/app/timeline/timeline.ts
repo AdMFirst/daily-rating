@@ -63,4 +63,10 @@ export class Timeline {
       this.pageState.set('error');
     }
   }
+
+
+  async debug() {
+    await database.debugSeedLastMonth();
+    console.log('Database seeded with test data!');
+  }
 }

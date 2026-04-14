@@ -144,6 +144,50 @@ class DatabaseService {
     const binary = atob(base64);
     return Uint8Array.from(binary, (c) => c.charCodeAt(0));
   }
+
+
+  async debugSeedLastMonth(): Promise<void> {
+    if (!this.cryptoKey) {
+      throw new Error('Database is locked');
+    }
+
+    const now = new Date();
+    const startOfLastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const endOfLastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+
+    for (
+      let day = new Date(startOfLastMonth);
+      day <= endOfLastMonth;
+      day.setDate(day.getDate() + 1)
+    ) {
+      const entriesForDay = this.randomInt(1, 5);
+
+      for (let i = 0; i < entriesForDay; i++) {
+        const entryDate = new Date(day);
+        entryDate.setHours(
+          this.randomInt(8, 22),
+          this.randomInt(0, 59),
+          this.randomInt(0, 59),
+          0
+        );
+
+        await this.save({
+          date: entryDate.toISOString(),
+          valance: this.randomFloat(-1, 1),
+          activation: this.randomFloat(-1, 1),
+          rating: this.randomInt(1, 5)
+        });
+      }
+    }
+  }
+
+  private randomInt(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  private randomFloat(min: number, max: number): number {
+    return Math.random() * (max - min) + min;
+  }
 }
 
 export const database = new DatabaseService();

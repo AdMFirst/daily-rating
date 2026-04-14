@@ -1,4 +1,13 @@
 
-<div>
-    <p>This works!</p>
+<div class="flex flex-col gap-4 h-full">
+    <p>Analysis of all historical data</p>
+    <div class="p-2 bg-accent/50 rounded-lg aspect-square xl:aspect-auto xl:flex-1 xl:h-full">
+        <canvas 
+            class="w-full h-full block"
+            baseChart
+            [data]="chartData()"
+            [options]="chartOptions"
+            [type]="'scatter'"
+        ></canvas>
+    </div>
 </div>
