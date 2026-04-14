@@ -3,13 +3,14 @@ import { RouterLink } from '@angular/router';
 import { database, MoodEntry } from '../core/services/database';
 import { PasswordDialog } from '../components/password-dialog/password-dialog';
 import { Calendar } from '../components/calendar/calendar';
+import { ScatterPlot } from '../components/scatter-plot/scatter-plot';
 
 
 type pageState = 'loading' | 'locked' | 'ready' | 'error';
 
 @Component({
   selector: 'app-timeline',
-  imports: [RouterLink, PasswordDialog, Calendar],
+  imports: [RouterLink, PasswordDialog, Calendar, ScatterPlot],
   templateUrl: './timeline.html',
   styles: '',
 })
