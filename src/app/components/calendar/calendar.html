@@ -25,30 +25,21 @@
       <!-- Calendar days -->
       @for (day of days(); track day.date.toISOString()) {
           <div 
-            class="aspect-square flex flex-col items-center justify-center rounded-2xl cursor-pointer hover:scale-105 relative group shadow-sm"
+            class="aspect-square flex flex-col items-center justify-center rounded-2xl w-full cursor-pointer hover:scale-105 relative group shadow-sm"
           [ngClass]="day.colorClass"
           (click)="onDayClick(day)"
         >
           <span class="text-[10px] absolute md:flex md:top-2 md:left-2 font-bold opacity-50" [class.hidden]="day.moodIcon">{{ day.date.getDate() }}</span>
           
           @if (day.moodIcon) {
-            <div class="flex flex-col items-center relative ">
+            <div class="flex flex-col items-center relative w-full">
               <div class="relative">
-                <i [class]="day.moodIcon + ' md:text-5xl group-hover:scale-110 transition-transform md:mb-1'"></i>
+                <i [class]="day.moodIcon + ' sm:text-3xl  m-1 group-hover:scale-110 transition-transform'"></i>
                 @if (day.entries.length > 1) {
                   <div class="badge badge-info border-none badge-xs absolute -top-2 -right-3 md:top-0 md:right-0 shadow-sm z-10">
                     {{ day.entries.length }}
                   </div>
                 }
-              </div>
-              <!-- Improved Valence/Activation display: small rounded badges for each value -->
-              <div class="hidden md:flex gap-1 mt-0.5">
-                <div class="badge badge-sm badge-primary font-medium uppercase ">
-                  V:{{ day.averageValence.toFixed(1) }}
-                </div>
-                <div class="badge badge-sm badge-primary font-medium uppercase ">
-                  A:{{ day.averageActivation.toFixed(1) }}
-                </div>
               </div>
             </div>
           }
