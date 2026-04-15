@@ -75,5 +75,5 @@
   [isOpen]="showPasswordEntry()"
   (submitted)="handleModalSubmit($event)"
   (canceled)="showPasswordEntry.set(false)"
-  [description]="'Your data is password protected. Please enter your password or create a new one to access timeline.'"
+  [description]="modalDescription()"
 />

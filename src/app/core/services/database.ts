@@ -14,14 +14,23 @@ interface MoodRow {
   encrypted: string;
 }
 
+interface MetaRow {
+  id: string;
+  encrypted: string;
+}
+
+export class PasswordWrongError extends Error {}
+
 class MoodDatabase extends Dexie {
   mood!: EntityTable<MoodRow, 'id'>;
+  meta!: EntityTable<MetaRow, 'id'>;
 
   constructor() {
     super('MoodDatabase');
 
     this.version(1).stores({
-      mood: '++id, date'
+      mood: '++id, &date',
+      meta: 'id'
     });
   }
 }
@@ -31,13 +40,13 @@ class DatabaseService {
   private cryptoKey: CryptoKey | null = null;
 
   async unlock(password: string): Promise<void> {
-    console.debug('Unlocking database!');
+    // 1. Derive the key from the password
     const keyBytes = await crypto.subtle.digest(
       'SHA-256',
       new TextEncoder().encode(password)
     );
 
-    this.cryptoKey = await crypto.subtle.importKey(
+    const tempKey = await crypto.subtle.importKey(
       'raw',
       keyBytes,
       { name: 'AES-GCM' },
@@ -45,7 +54,50 @@ class DatabaseService {
       ['encrypt', 'decrypt']
     );
 
+    // 2. Validate the key against the Canary
+    const canary = await this.db.meta.get('auth_canary');
+
+    if (canary) {
+      try {
+        // Try to decrypt the canary record
+        await this.decryptRaw(canary.encrypted, tempKey);
+      } catch (e) {
+        // If decryption fails, the password is wrong
+        throw new PasswordWrongError('INVALID_PASSWORD');
+      }
+    } else {
+      // First time use: Create the canary
+      const encryptedCanary = await this.encryptRaw("verified", tempKey);
+      await this.db.meta.put({ id: 'auth_canary', encrypted: encryptedCanary });
+    }
+
+    // 3. If we got here, the password is correct!
+    this.cryptoKey = tempKey;
     sessionStorage.setItem('mood-db-password', password);
+  }
+
+  private async encryptRaw(text: string, key: CryptoKey): Promise<string> {
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const encoded = new TextEncoder().encode(text);
+    const ciphertext = await crypto.subtle.encrypt(
+      { name: 'AES-GCM', iv },
+      key,
+      encoded
+    );
+    return this.combineIvAndCipher(iv, new Uint8Array(ciphertext));
+  }
+
+  private async decryptRaw(base64: string, key: CryptoKey): Promise<string> {
+    const combined = this.base64ToBytes(base64);
+    const iv = combined.slice(0, 12);
+    const cipher = combined.slice(12);
+
+    const decryptedBuffer = await crypto.subtle.decrypt(
+      { name: 'AES-GCM', iv },
+      key,
+      cipher
+    );
+    return new TextDecoder().decode(decryptedBuffer);
   }
 
   async restoreSession(): Promise<boolean> {

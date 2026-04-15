@@ -1,6 +1,6 @@
 import { Component, computed, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import nipplejs from 'nipplejs';
-import { database, MoodEntry } from '../core/services/database';
+import { database, MoodEntry, PasswordWrongError } from '../core/services/database';
 import { PasswordDialog } from '../components/password-dialog/password-dialog';
 import { Router } from '@angular/router';
 import { moodLabelFromVA } from '../core/utils/mood-translator';
@@ -28,6 +28,7 @@ export class Index {
   });
 
   protected showPasswordEntry = signal(false);
+  protected modalDescription = signal('Your data is password protected. Please enter your password or create a new one to save your mood entry.');
 
   private manager: any;
 
@@ -48,7 +49,6 @@ export class Index {
       const data = evt?.data;
       const x = data?.vector?.x ?? 0;
       const y = data?.vector?.y ?? 0;
-      console.log();
 
       this.valence.set(this.clamp(x, -1, 1));
       this.activation.set(this.clamp(y, -1, 1));
@@ -81,12 +81,15 @@ export class Index {
 
   protected async handleModalSave(password: string) {
     try {
-      console.debug('Attempting to unlock database with password:', password)
       await database.unlock(password);
       await this.proceedSave();
       this.showPasswordEntry.set(false);
     } catch (error) {
       console.error('Error unlocking database:', error);
+      if (error instanceof PasswordWrongError) {
+        this.showPasswordEntry.set(true);
+        this.modalDescription.set('Incorrect password. Please try again.');
+      }
     }
     
   }
