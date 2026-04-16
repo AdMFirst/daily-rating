@@ -6,7 +6,8 @@
     "start": "ng serve --live-reload --no-hmr",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "check": "tsc --noEmit"
   },
   "private": true,
   "packageManager": "npm@11.11.0",

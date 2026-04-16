@@ -1,4 +1,4 @@
-import { Component, input, signal, OnInit, computed, effect } from '@angular/core';
+import { Component, input, signal, computed, effect } from '@angular/core';
 import { MoodEntry } from '../../core/services/database';
 
 @Component({
