@@ -1,0 +1,23 @@
+<div class="stats shadow w-full h-full">
+    <div class="stat">
+        <div class="stat-title">Valance</div>
+        <div class="stat-value">{{avgValance().toFixed(2)}}</div>
+        <div class="stat-desc">Avarage of last 7 days</div>
+    </div>
+    <div class="stat">
+        <div class="stat-title">Activation</div>
+        <div class="stat-value">{{avgActivation().toFixed(2)}}</div>
+        <div class="stat-desc">Avarage of last 7 days</div>
+    </div>
+    <div class="stat">
+        <div class="stat-title">Mood Rating</div>
+        <div class="stat-value" [innerHTML]="starsHtml()"></div>
+        <div class="stat-desc">Avarage of last 7 days</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-title">Weekly Streak</div>
+        <div class="stat-value">{{currentStreak()}}/7</div>
+        <div class="stat-desc">{{currentStreakLabel()}}</div>
+    </div>
+</div>

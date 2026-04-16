@@ -43,6 +43,10 @@
   }
 
   @else if (pageState() === 'ready') {
+    <div class="mb-6">
+      <app-summary-statistic [moodEntries]="entries()"  />
+    </div>
+
     <div  class="flex flex-col card px-6 py-4 md:px-12 md:py-6 bg-base-200 items-center justify-center container">
       @if (entries().length === 0 ){
         <div class="w-20 h-20 bg-base-300  rounded-full flex items-center justify-center mb-6">

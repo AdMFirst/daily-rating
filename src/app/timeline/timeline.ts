@@ -4,13 +4,14 @@ import { database, MoodEntry, PasswordWrongError } from '../core/services/databa
 import { PasswordDialog } from '../components/password-dialog/password-dialog';
 import { Calendar } from '../components/calendar/calendar';
 import { ScatterPlot } from '../components/scatter-plot/scatter-plot';
+import { SummaryStatistic } from '../components/summary-statistic/summary-statistic';
 
 
 type pageState = 'loading' | 'locked' | 'ready' | 'error';
 
 @Component({
   selector: 'app-timeline',
-  imports: [RouterLink, PasswordDialog, Calendar, ScatterPlot],
+  imports: [RouterLink, PasswordDialog, Calendar, ScatterPlot, SummaryStatistic],
   templateUrl: './timeline.html',
   styles: '',
 })
