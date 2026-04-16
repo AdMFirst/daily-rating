@@ -58,13 +58,20 @@ export class ScatterPlot {
         title: {
           display: true,
           text: 'Valance',
+          color: this.getThemeColor('--color-base-content', '#fff')
         },
+        ticks: {color: this.getThemeColor('--color-base-content', '#fff')},
+        grid: {color: this.getThemeColor('--color-base-content', '#fff')},
       },
       y: {
         title: {
           display: true,
           text: 'Activation',
+          color: this.getThemeColor('--color-base-content', '#fff')
         },
+        ticks: {color: this.getThemeColor('--color-base-content', '#fff')},
+        grid: {color: this.getThemeColor('--color-base-content', '#fff')},
+
       },
     },
     plugins: {

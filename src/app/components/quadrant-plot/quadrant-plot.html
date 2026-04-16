@@ -1,7 +1,6 @@
-
 <div class="flex flex-col gap-2 h-full">
     <div class="flex flex-row w-full items-center justify-between">
-        <p class="text-md md:text-2xl font-bold capitalize">Mood map</p>
+        <p class="text-md md:text-2xl font-bold capitalize">Quadrant plot</p>
         <div class="dropdown dropdown-end">
             <div tabindex="0" role="button" class="btn btn-ghost p-1 aspect-square"><i class="fa-solid fa-filter "></i></div>
             <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
@@ -16,15 +15,18 @@
         </div>
     </div>
     <span class="text-sm text-muted-foreground tracking-tighter">
-        Spot patterns in where your entries gather and which areas tend to correspond to better, neutral, or worse days.
+        This pie chart shows how your moods are distributed across the four main emotional zones based on Russell's Circumplex Model. 
+        You can see whether your moods are balanced or skewed toward certain feelings (e.g., too much stress or mostly calm).
     </span>
-    <div class="p-2 bg-base-300 rounded-lg aspect-square xl:aspect-auto xl:flex-1 xl:h-full">
-        <canvas 
-            class="w-full h-full block"
-            baseChart
-            [data]="chartData()"
-            [options]="chartOptions"
-            [type]="'scatter'"
-        ></canvas>
+    <div class="w-full p-6 rounded-lg bg-base-300">
+        <div class="container md:w-5/6 m-auto">
+            <canvas baseChart
+                type="doughnut"
+                [data]="chartData()"
+                [options]="chartOptions"
+                class="aspect-3/2 md:aspect-auto">
+            </canvas>
+        </div>
     </div>
+
 </div>

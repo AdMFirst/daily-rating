@@ -5,13 +5,15 @@ import { PasswordDialog } from '../components/password-dialog/password-dialog';
 import { Calendar } from '../components/calendar/calendar';
 import { ScatterPlot } from '../components/scatter-plot/scatter-plot';
 import { SummaryStatistic } from '../components/summary-statistic/summary-statistic';
+import { TrendlinePlot } from '../components/trendline-plot/trendline-plot';
+import { QuadrantPlot } from '../components/quadrant-plot/quadrant-plot';
 
 
 type pageState = 'loading' | 'locked' | 'ready' | 'error';
 
 @Component({
   selector: 'app-timeline',
-  imports: [RouterLink, PasswordDialog, Calendar, ScatterPlot, SummaryStatistic],
+  imports: [RouterLink, PasswordDialog, Calendar, ScatterPlot, SummaryStatistic, TrendlinePlot, QuadrantPlot],
   templateUrl: './timeline.html',
   styles: '',
 })

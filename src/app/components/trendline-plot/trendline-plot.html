@@ -1,7 +1,7 @@
 
-<div class="flex flex-col gap-2 h-full">
+  <div class="flex flex-col gap-2 h-full">
     <div class="flex flex-row w-full items-center justify-between">
-        <p class="text-md md:text-2xl font-bold capitalize">Mood map</p>
+        <p class="text-md md:text-2xl font-bold capitalize">Trendline plot</p>
         <div class="dropdown dropdown-end">
             <div tabindex="0" role="button" class="btn btn-ghost p-1 aspect-square"><i class="fa-solid fa-filter "></i></div>
             <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
@@ -16,15 +16,14 @@
         </div>
     </div>
     <span class="text-sm text-muted-foreground tracking-tighter">
-        Spot patterns in where your entries gather and which areas tend to correspond to better, neutral, or worse days.
+        This chart tracks how your Valence (how positive or negative you felt), Activation (how energized or calm you felt), and Star Rating (your overall quantitative score) have evolved in last weeks
     </span>
-    <div class="p-2 bg-base-300 rounded-lg aspect-square xl:aspect-auto xl:flex-1 xl:h-full">
+    <div class="container rounded-lg bg-base-300 w-full aspect-3/2">
         <canvas 
-            class="w-full h-full block"
             baseChart
             [data]="chartData()"
             [options]="chartOptions"
-            [type]="'scatter'"
-        ></canvas>
+            [type]="'line'">
+        </canvas>
     </div>
-</div>
+  </div>
