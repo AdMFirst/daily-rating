@@ -19,6 +19,8 @@ type pageState = 'loading' | 'locked' | 'ready' | 'error';
 })
 export class Timeline {
 
+  protected debugMode = signal(false);
+
   protected pageState = signal<pageState>('loading');
   protected showPasswordEntry = signal(false);
   protected modalDescription = signal('Your data is password protected. Please enter your password or create a new one to access timeline.');
@@ -27,6 +29,10 @@ export class Timeline {
 
   async ngOnInit() {
     try {
+      // load debug mode flag from localstorage
+      const isDebug = localStorage.getItem('debugMode') === 'true';
+      this.debugMode.set(isDebug);
+
       const unlocked = await database.restoreSession();
       if (!unlocked) {
         this.pageState.set('locked');
@@ -74,7 +80,9 @@ export class Timeline {
 
 
   async debug() {
-    await database.debugSeedLastMonth();
+    if (!this.debugMode()) return
+
+    await database.debugSeedData();
     console.log('Database seeded with test data!');
   }
 }

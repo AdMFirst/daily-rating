@@ -78,9 +78,11 @@
       </div>
     }
   }
-  <button (click)="debug()" class="btn btn-sm btn-ghost mt-4">
-    Seed Test Data
-  </button>
+  @if (debugMode()) {
+    <button (click)="debug()" class="btn btn-sm btn-ghost mt-4">
+      Seed Test Data
+    </button>
+  }
 </div>
 
 <app-password-dialog

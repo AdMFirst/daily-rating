@@ -67,8 +67,9 @@ export class SummaryStatistic {
       this.avgRating.set(0);
     }
 
-    // Calculate current streak
-    this.currentStreak.set(this.calculateStreak(entries));
+    // Calculate current weekly streak
+    const streak = this.calculateStreak(entries);
+    this.currentStreak.set(Math.min(streak, 7));
   }
 
   private calculateStreak(entries: MoodEntry[]): number {

@@ -198,21 +198,29 @@ class DatabaseService {
   }
 
 
-  async debugSeedLastMonth(): Promise<void> {
+  /**
+   * Seed the database with realistic mood entries for the last three months up to today.
+   *
+   * - Each day gets on average one entry; a small random chance adds a second or third entry.
+   * - `valance` and `activation` are constrained to a circle of radius 0.7 to avoid impossible extremes.
+   * - The `rating` (1‑5 stars) is derived from the combined valence/activation so that higher
+   *   emotional intensity yields a higher rating.
+   */
+  async debugSeedData(): Promise<void> {
     if (!this.cryptoKey) {
       throw new Error('Database is locked');
     }
 
     const now = new Date();
-    const startOfLastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-    const endOfLastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+    // Start from the first day of the month three months ago
+    const start = new Date(now.getFullYear(), now.getMonth() - 2, 1);
+    // End at today (inclusive)
+    const end = new Date(now);
 
-    for (
-      let day = new Date(startOfLastMonth);
-      day <= endOfLastMonth;
-      day.setDate(day.getDate() + 1)
-    ) {
-      const entriesForDay = this.randomInt(1, 5);
+    for (let day = new Date(start); day <= end; day.setDate(day.getDate() + 1)) {
+      // Base one entry per day, with a 20% chance of a second and 5% chance of a third
+      const extra = this.randomInt(0, 2); // 0‑2 extra entries
+      const entriesForDay = 1 + extra;
 
       for (let i = 0; i < entriesForDay; i++) {
         const entryDate = new Date(day);
@@ -223,14 +231,39 @@ class DatabaseService {
           0
         );
 
+        // Generate valance and activation within a circle of radius 0.7
+        const { valance, activation } = this.randomValanceActivation();
+
+        // Derive rating from the magnitude of the emotional vector (0‑0.7)
+        const rating = this.ratingFromEmotion(valance, activation);
+
         await this.save({
           date: entryDate.toISOString(),
-          valance: this.randomFloat(-1, 1),
-          activation: this.randomFloat(-1, 1),
-          rating: this.randomInt(1, 5)
+          valance,
+          activation,
+          rating
         });
       }
     }
+  }
+
+  /** Generate a valance/activation pair whose Euclidean distance from (0,0) does not exceed 0.7 */
+  private randomValanceActivation(): { valance: number; activation: number } {
+    const radius = 0.7;
+    // Polar coordinates: random angle, random radius (sqrt for uniform distribution)
+    const angle = Math.random() * 2 * Math.PI;
+    const r = Math.sqrt(Math.random()) * radius;
+    const valance = r * Math.cos(angle);
+    const activation = r * Math.sin(angle);
+    return { valance, activation };
+  }
+
+  /** Convert emotional intensity to a 1‑5 star rating. */
+  private ratingFromEmotion(valance: number, activation: number): number {
+    const magnitude = Math.sqrt(valance * valance + activation * activation);
+    // Map magnitude 0‑0.7 to rating 1‑5
+    const rating = Math.round((magnitude / 0.7) * 4) + 1;
+    return Math.min(Math.max(rating, 1), 5);
   }
 
   private randomInt(min: number, max: number): number {
