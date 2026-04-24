@@ -1,37 +1,38 @@
-<nav class="navbar bg-base-100 shadow-md px-4 lg:px-8">
-  <!-- Left Side: Logo + Desktop Links -->
-  <div class="navbar-start">
-    <a routerLink="/" class="text-xl font-bold tracking-tight">
-      Daily Rating
-    </a>
+<div class="min-h-dvh flex flex-col">
+  <nav class="navbar bg-base-100 shadow-md px-4 lg:px-8">
+    <!-- Left Side: Logo + Desktop Links -->
+    <div class="navbar-start">
+      <a routerLink="/" class="text-xl font-bold tracking-tight">
+        Daily Rating
+      </a>
 
-    <!-- Desktop Menu: Hidden on small screens, flex on small+ -->
-    <ul class="menu menu-horizontal hidden sm:flex gap-2"> 
-      <li><a routerLink="/timeline" class="font-medium">Timeline</a></li>
-      <li><a routerLink="/pricing" class="font-medium">Pricing</a></li>
-    </ul>
-  </div>
-
-  <!-- Right Side: Burger Menu (Mobile Only) -->
-  <div class="navbar-end">
-    <!-- dropdown-end prevents the menu from clipping off the screen -->
-    <div class="dropdown dropdown-end">
-      <label tabindex="0" class="btn btn-square sm:hidden">
-        <i class="fa-solid fa-bars fa-lg"></i>
-      </label>
-      <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-lg bg-base-100 rounded-box w-52 border border-base-200">
-        <li><a routerLink="/pricing">Pricing</a></li>
-        <li><a routerLink="/timeline">Timeline</a></li>
+      <!-- Desktop Menu: Hidden on small screens, flex on small+ -->
+      <ul class="menu menu-horizontal hidden sm:flex gap-2"> 
+        <li><a routerLink="/timeline" class="font-medium">Timeline</a></li>
+        <li><a routerLink="/pricing" class="font-medium">Pricing</a></li>
       </ul>
     </div>
-  </div>
-</nav>
 
-<main class="container mx-auto p-6 ">
-  <router-outlet />
-</main>
+    <!-- Right Side: Burger Menu (Mobile Only) -->
+    <div class="navbar-end">
+      <!-- dropdown-end prevents the menu from clipping off the screen -->
+      <div class="dropdown dropdown-end">
+        <label tabindex="0" class="btn btn-square sm:hidden">
+          <i class="fa-solid fa-bars fa-lg"></i>
+        </label>
+        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-lg bg-base-100 rounded-box w-52 border border-base-200">
+          <li><a routerLink="/pricing">Pricing</a></li>
+          <li><a routerLink="/timeline">Timeline</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-<!-- copyright section -->
-<div class="text-center py-6 text-sm opacity-70">
-  &copy; {{ currentYear() }} AdMFirst. All rights reserved.
+  <main class="container mx-auto p-6 flex-grow">
+    <router-outlet />
+  </main>
+
+  <footer class="text-center py-6 text-sm opacity-70">
+    &copy; {{ currentYear() }} AdMFirst. All rights reserved.
+  </footer>
 </div>
